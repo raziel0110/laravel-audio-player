@@ -1,6 +1,7 @@
 [ OK ] Implement Audio CRUD Api(Load all, Upload and Delete)
 [ OK ] Implement compress audio while upload or upload in chunks
 [ OK ] Refactor validation audio file into separate class request validation
+[ ] Refactor par for uploading and use just audio track uploading
 [ ] Move uploaded track to private folder 
 [ ] Now that uploading in chunks is posible, the user should upload multiple file at once.
 [ ] Implement Front-end for Audio player
