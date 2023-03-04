@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,4 @@ Route::post('/tracks', [\App\Http\Controllers\AudioController::class, 'store']);
 Route::delete('/tracks/{audio}', [\App\Http\Controllers\AudioController::class, 'destroy']);
 
 
+Route::post('/upload', [UploadController::class, 'upload']);
