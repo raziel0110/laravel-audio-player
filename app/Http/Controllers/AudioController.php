@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AudioTrackRequest;
 use App\Models\Audio;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,16 +21,11 @@ class AudioController extends Controller
     }
 
   /**
-   * @param Request $request
+   * @param AudioTrackRequest $request
    * @return JsonResponse
    */
-  public function store(Request $request): JsonResponse
+  public function store(AudioTrackRequest $request): JsonResponse
   {
-      $request->validate([
-        'tracks' => 'required',
-        'tracks.*' => 'required|mimes:mp3,wav'
-      ]);
-
      if ($request->has('tracks')) {
        foreach ($request->file('tracks') as $track) {
          $filename = time().$track->getClientOriginalName();
