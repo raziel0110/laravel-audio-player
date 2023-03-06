@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AudioTrackRequest extends FormRequest
@@ -24,8 +25,7 @@ class AudioTrackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tracks'   => 'required',
-            'tracks.*' =>  'required|mimes:mp3,wav'
+          'extension' =>  ['required', Rule::In(['mp3', 'wav'])]
         ];
     }
 
@@ -37,8 +37,7 @@ class AudioTrackRequest extends FormRequest
     public function messages()
     {
       return [
-        'tracks'   => 'It should be selected at least one track',
-        'tracks.*' => 'Please selected only audio files (mp3 or wav)'
+        'extension' => 'Please selected only audio files (mp3 or wav)'
       ];
     }
 }
