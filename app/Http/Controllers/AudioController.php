@@ -24,23 +24,55 @@ class AudioController extends Controller
    * @param AudioTrackRequest $request
    * @return JsonResponse
    */
-  public function store(AudioTrackRequest $request): JsonResponse
+  public function store(AudioTrackRequest $request)
   {
-     if ($request->has('tracks')) {
-       foreach ($request->file('tracks') as $track) {
-         $filename = time().$track->getClientOriginalName();
-         $track->move('uploads', $filename);
+    $chunk       = $request->file('chunk');
+    $chunkNumber = $request->input('chunkNumber');
+    $totalChunks = $request->input('totalChunks');
+    $filename    = $request->input('filename');
+    $extension   = $request->input('extension');
 
-         Audio::create([
-           'track' => $filename
-         ]);
-       }
+    $chunkPath = storage_path("app/uploads/tmp/");
+    $chunk->move($chunkPath, "part_" . $chunkNumber);
 
-       return response()->json(["status" => Response::HTTP_CREATED, "message" => "Track(s) uploaded"]);
-     } else {
-       return response()->json(["status" => Response::HTTP_BAD_REQUEST, "message" => "Something went wrong"]);
-     }
+    if ($chunkNumber === $totalChunks) {
+      $chunks   = array_diff(scandir($chunkPath), array('..','.'));
+      $filePath = storage_path("app/uploads/" . $filename);
+      $file     = fopen($filePath, 'wb');
+
+      foreach ($chunks as $chunk) {
+        fwrite($file, file_get_contents(storage_path("app/uploads/tmp/" . $chunk)));
+        unlink(storage_path("app/uploads/tmp/" . $chunk));
+      }
+
+      fclose($file);
+
+      Audio::create([
+        'track' => $filename
+      ]);
+
+      return response()->json(['filename' => basename($filePath)], 201);
+    }
+
+
+    // dd(storage_path("app/uploads/" . $filename));
+
   }
+
+  //  if ($request->has('tracks')) {
+    //    foreach ($request->file('tracks') as $track) {
+    //      $filename = time().$track->getClientOriginalName();
+    //      $track->move('uploads', $filename);
+
+    //      Audio::create([
+    //        'track' => $filename
+    //      ]);
+    //    }
+
+    //    return response()->json(["status" => Response::HTTP_CREATED, "message" => "Track(s) uploaded"]);
+    //  } else {
+    //    return response()->json(["status" => Response::HTTP_BAD_REQUEST, "message" => "Something went wrong"]);
+    //  }
 
   /**
    * @param Audio $audio
