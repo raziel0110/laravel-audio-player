@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -33,7 +35,6 @@ class Handler extends ExceptionHandler
     protected $dontFlash = [
         'current_password',
         'password',
-        'password_confirmation',
     ];
 
     /**
@@ -44,7 +45,38 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+          $error = [
+            'trace' => $e->getTrace(),
+            'message' => $e->getMessage(),
+          ];
+
+          Log::info(json_encode($error));
         });
+    }
+
+    /**
+     * @param mixed $request
+     * @param Throwable $e
+     *
+     * @return JsonResponse
+     */
+    public function render($request, Throwable $e)
+    {
+
+    }
+
+    /**
+     * @param Throwable $e
+     *
+     * @return void
+     */
+    public function report(Throwable $e)
+    {
+      $data = [
+        'message' => $e->getMessage(),
+        'trace' => $e->getTrace()
+      ];
+
+      Log::info(json_encode($data));
     }
 }
