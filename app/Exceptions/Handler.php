@@ -64,4 +64,19 @@ class Handler extends ExceptionHandler
     {
 
     }
+
+    /**
+     * @param Throwable $e
+     *
+     * @return void
+     */
+    public function report(Throwable $e)
+    {
+      $data = [
+        'message' => $e->getMessage(),
+        'trace' => $e->getTrace()
+      ];
+
+      Log::info(json_encode($data));
+    }
 }

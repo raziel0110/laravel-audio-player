@@ -15,10 +15,6 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-// Route::middleware(['auth:api'])->group(function() {
-//   // add routes that only an user can access
-// });
-
 Route::group(['namespace' => 'App', 'middleware' => ['logging']], function () {
   Route::post('/register', [RegisterController::class, 'register']);
   Route::post('/login', [RegisterController::class, 'login']);
