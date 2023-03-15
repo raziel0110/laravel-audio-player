@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Response;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
