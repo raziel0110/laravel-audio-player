@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AudioTrackRequest;
 use App\Models\Audio;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\AudioTrackRequest;
 
 class AudioController extends Controller
 {
@@ -17,7 +17,7 @@ class AudioController extends Controller
     {
       $tracks = Audio::all();
 
-      return response()->json(["status" => Response::HTTP_OK, "count" => count($tracks), "data" => $tracks]);
+      return response()->json(["status" => 'OK', "count" => count($tracks), "data" => $tracks], 200);
     }
 
   /**
