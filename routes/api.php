@@ -15,18 +15,16 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/login', [RegisterController::class, 'login']);
-Route::post('/logout', [RegisterController::class, 'logout']);
+Route::group(['middleware' => 'logging'], function () {
+  Route::post('/register', [RegisterController::class, 'register']);
+  Route::post('/login', [RegisterController::class, 'login']);
+  Route::post('/logout', [RegisterController::class, 'logout']);
 
-Route::middleware(['auth:api'])->group(function() {
-  // add routes that only an user can access
+  Route::get('/tracks', [\App\Http\Controllers\AudioController::class, 'index'])->middleware('auth:api');
+  Route::post('/tracks', [\App\Http\Controllers\AudioController::class, 'store'])->middleware('auth:api');
+  Route::delete('/tracks/{audio}', [\App\Http\Controllers\AudioController::class, 'destroy'])->middleware('auth:api');;
+
+  Route::post('/upload', [UploadController::class, 'upload']);
 });
 
 
-Route::get('/tracks', [\App\Http\Controllers\AudioController::class, 'index']);
-Route::post('/tracks', [\App\Http\Controllers\AudioController::class, 'store']);
-Route::delete('/tracks/{audio}', [\App\Http\Controllers\AudioController::class, 'destroy']);
-
-
-Route::post('/upload', [UploadController::class, 'upload']);
