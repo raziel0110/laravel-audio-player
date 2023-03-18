@@ -20,8 +20,8 @@ Route::group(['middleware' => 'logging'], function () {
   Route::post('/login', [RegisterController::class, 'login']);
   Route::post('/logout', [RegisterController::class, 'logout']);
 
-  Route::get('/tracks', [\App\Http\Controllers\AudioController::class, 'index'])->middleware('auth:api');
-  Route::post('/tracks', [\App\Http\Controllers\AudioController::class, 'store'])->middleware('auth:api');
+  Route::get('/tracks', [\App\Http\Controllers\AudioController::class, 'index']);
+  Route::post('/tracks', [\App\Http\Controllers\AudioController::class, 'store']);
   Route::delete('/tracks/{audio}', [\App\Http\Controllers\AudioController::class, 'destroy'])->middleware('auth:api');;
 
   Route::post('/upload', [UploadController::class, 'upload']);
