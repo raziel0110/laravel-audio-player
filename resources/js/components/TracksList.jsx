@@ -25,7 +25,7 @@ const TracksList = () => {
   return (
     <>
       <div className="track_list">
-        <h4>Playlist</h4>
+        <h4 className="text-lg text-orange-500">Playlist</h4>
         <div>
           {tracks.map((track, index) => (
             <div key={index}>
