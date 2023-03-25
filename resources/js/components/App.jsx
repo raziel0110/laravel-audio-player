@@ -1,10 +1,18 @@
-import { useState, useEffect } from "react";
-import Player from "./Player";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PlayerPage from '../pages/user/PlayerPage';
+import Register from '../pages/Register';
+import Login from '../pages/Login';
 
 const App = () => {
   return (
     <div>
-      <Player />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PlayerPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
