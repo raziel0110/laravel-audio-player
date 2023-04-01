@@ -10,7 +10,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<PlayerPage />} exact />
           <Route path="/login" element={<Login />} exact />
-          <Route path="/register" element={<Register />} exact/>
+          <Route path="/register" element={<Register register={true} />} exact/>
         </Routes>
       </BrowserRouter>
     </div>
