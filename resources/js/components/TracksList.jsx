@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import ApiService from "../services/ApiService";
 
 import UploadFile from "./UploadFile";
 
@@ -12,7 +13,7 @@ const TracksList = () => {
   }, [])
 
   const fetchAudioTracks = () => {
-    axios.get('http://localhost:8000/api/tracks').then(response => {
+    ApiService.get('tracks').then(response => {
       if (response.data) {
         setTracks(response.data.data);
         setCount(response.data.count);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import ApiService from "../services/ApiService";
 
 const UploadFile = () => {
   const [files, setFiles] = useState([]);
@@ -28,7 +28,7 @@ const UploadFile = () => {
       formData.append('filename', files.name);
       formData.append('extension', extension)
 
-      await axios.post('http://localhost:8000/api/tracks', formData);
+      await ApiService.post('tracks', formData);
     }
 
     // const data = new FormData();

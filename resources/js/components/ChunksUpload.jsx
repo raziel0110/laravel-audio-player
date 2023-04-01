@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import ApiService from '../services/ApiService';
 
 const ChunksUpload = () => {
   const [file, setFile] = useState(null);
@@ -25,7 +25,7 @@ const ChunksUpload = () => {
       formData.append('totalChunks', chunks);
       formData.append('filename', file.name);
 
-      await axios.post('http://localhost:8000/api/upload', formData);
+      await ApiService.post('upload', formData);
     }
   }
 
