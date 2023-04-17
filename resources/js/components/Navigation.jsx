@@ -31,9 +31,7 @@ const Navigation = () => {
               )
             })
           }
-          <li className="md:ml-8 text-xl md:my-0 my-7">
-            <UserNavigationButton />
-          </li>
+          <UserNavigationButton />
         </ul>
       </div>
     </div>
