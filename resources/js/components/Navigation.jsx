@@ -3,9 +3,7 @@ import { useState } from 'react';
 
 const Navigation = () => {
   const links = [
-    { name: 'Home', link: '/', key: 1 },
-    { name: 'About', link: '/about', key: 2 },
-    { name: 'Playlist', link: '/playlist', key: 3 },
+    { name: 'Tracks', link: '/', key: 1 },
   ];
 
   const [open, setOpen] = useState(false);
